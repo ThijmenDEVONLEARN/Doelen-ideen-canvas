@@ -1,8 +1,9 @@
 import { state, load, undo, redo, deleteItem, removeLink, subscribe } from './state.js';
 import { onSaveStatus, onServerChange } from './api.js';
-import { applyView, zoomAt, fitAll, setTool, deleteZone, render, hooks, focusItem } from './canvas.js';
+import { applyView, zoomAt, fitAll, setTool, deleteZone, render, hooks, focusItem, createAt, viewportCenter } from './canvas.js';
 import { openRead, openEdit, closePanel } from './panel.js';
 import { setTimeline, timelineHooks } from './timeline.js';
+import { setupSearch, openSearch } from './search.js';
 import { applyStyles } from './style.js';
 
 const $ = id => document.getElementById(id);
@@ -34,8 +35,18 @@ subscribe(() => { $('zoom-level').textContent = Math.round(state.view.scale * 10
 Object.assign(hooks, { openRead, openEdit, closePanel });
 timelineHooks.focus = id => { focusItem(id); openRead(id); };
 
+export const actions = [
+  { label: 'Nieuw doel maken', key: 'D', run: () => createAt('doel', viewportCenter()) },
+  { label: 'Nieuw idee maken', key: 'I', run: () => createAt('idee', viewportCenter()) },
+  { label: 'Nieuwe notitie maken', key: 'N', run: () => createAt('notitie', viewportCenter()) },
+  { label: 'Tijdband aan of uit', key: 'T', run: () => setTimeline(!state.timeline) },
+  { label: 'Alles in beeld', key: '', run: fitAll },
+];
+setupSearch({ actions, onPick: id => { focusItem(id); openRead(id); } });
+$('search-open').addEventListener('click', openSearch);
+
 const TOOL_KEYS = { v: 'select', p: 'edit', d: 'doel', i: 'idee', n: 'notitie', z: 'zone', l: 'lijn' };
-export const shortcuts = {}; // extra key handlers registered by feature modules: { 'ctrl+k': fn }
+export const shortcuts = { 'ctrl+k': openSearch }; // { 'ctrl+k': fn }, checked before anything else
 
 window.addEventListener('keydown', e => {
   const combo = (e.ctrlKey || e.metaKey ? 'ctrl+' : '') + (e.shiftKey ? 'shift+' : '') + e.key.toLowerCase();
