@@ -151,8 +151,8 @@ export function renderLinks() {
     const el = cardsEl.querySelector(`:scope > [data-id="${CSS.escape(id)}"]`);
     return el && { x: el.offsetLeft, y: el.offsetTop, w: el.offsetWidth, h: el.offsetHeight };
   };
-  linksEl.innerHTML = state.layout.links.map(l => {
-    const a = box(l.from), b = box(l.to);
+  linksEl.innerHTML = state.layout.links.map(link => {
+    const a = box(link.from), b = box(link.to);
     if (!a || !b) return '';
     const [l, r] = a.x + a.w / 2 <= b.x + b.w / 2 ? [a, b] : [b, a];
     const [t, u] = a.y + a.h / 2 <= b.y + b.h / 2 ? [a, b] : [b, a];
@@ -168,8 +168,8 @@ export function renderLinks() {
       const c = Math.max(30, (y2 - y1) / 2);
       d = `M${x1} ${y1} C${x1} ${y1 + c} ${x2} ${y2 - c} ${x2} ${y2}`;
     }
-    const cls = state.selected?.kind === 'link' && state.selected.id === l.id ? ' class="is-selected"' : '';
-    return `<path d="${d}"${cls}/><path class="link-hit" data-link="${esc(l.id)}" d="${d}"/>`;
+    const cls = state.selected?.kind === 'link' && state.selected.id === link.id ? ' class="is-selected"' : '';
+    return `<path d="${d}"${cls}/><path class="link-hit" data-link="${esc(link.id)}" d="${d}"/>`;
   }).join('');
 }
 
