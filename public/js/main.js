@@ -1,6 +1,7 @@
 import { state, load, undo, redo, deleteItem, removeLink, subscribe } from './state.js';
 import { onSaveStatus, onServerChange } from './api.js';
 import { applyView, zoomAt, fitAll, setTool, deleteZone, render } from './canvas.js';
+import { applyStyles } from './style.js';
 
 const $ = id => document.getElementById(id);
 
@@ -25,6 +26,7 @@ for (const b of document.querySelectorAll('[data-tool]')) b.addEventListener('cl
 $('zoom-in').addEventListener('click', () => zoomAt(1.2));
 $('zoom-out').addEventListener('click', () => zoomAt(1 / 1.2));
 $('zoom-fit').addEventListener('click', fitAll);
+subscribe(applyStyles);
 subscribe(() => { $('zoom-level').textContent = Math.round(state.view.scale * 100) + '%'; });
 
 const TOOL_KEYS = { v: 'select', p: 'edit', d: 'doel', i: 'idee', n: 'notitie', z: 'zone', l: 'lijn' };
