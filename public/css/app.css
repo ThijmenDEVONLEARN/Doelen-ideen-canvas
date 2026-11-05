@@ -106,7 +106,7 @@ kbd { font: 11px var(--mono); border: 1px solid var(--line); border-radius: 4px;
 .card__meta { display: flex; justify-content: space-between; gap: 8px; color: var(--muted); font-size: 11.5px; }
 .card__bar { height: 4px; border-radius: 2px; background: #2d2640; margin-top: 9px; overflow: hidden; }
 .card__bar i { display: block; height: 100%; background: var(--teal); border-radius: 2px; }
-.card__text { margin: 4px 0 0; color: var(--fg-soft); font-size: 12.5px; }
+.card__text { margin: 4px 0 0; color: inherit; opacity: .8; font-size: 12.5px; }
 .card__by { display: inline-block; margin-top: 7px; font: 500 10px var(--mono); color: var(--amber); border: 1px solid #f2b24c55; border-radius: 4px; padding: 1px 5px; }
 .card__resize { position: absolute; right: -4px; bottom: -4px; width: 14px; height: 14px; cursor: ew-resize; opacity: 0; }
 .card:hover .card__resize, .card.is-selected .card__resize { opacity: 1; }
@@ -120,12 +120,12 @@ kbd { font: 11px var(--mono); border: 1px solid var(--line); border-radius: 4px;
 
 .card--doel.status--gehaald { border-color: var(--green); box-shadow: 0 0 28px #5fd49a26; }
 .card--doel.status--gehaald .card__bar i { background: var(--green); }
-.card--idee { width: 160px; padding: 9px 11px; border: 1px dashed #4a4260; background: #191622; box-shadow: none; border-radius: 10px; }
-.card--idee .card__title { font: 500 13px var(--body); color: var(--fg-soft); }
+.card--idee { width: 160px; padding: 9px 11px; border: 1px dashed #4a4260; background: #191622; color: var(--fg-soft); box-shadow: none; border-radius: 10px; }
+.card--idee .card__title { font: 500 13px var(--body); }
 .card--notitie { background: #1a1722; border-color: var(--line-strong); box-shadow: none; border-radius: 10px; }
 .card--afbeelding { padding: 0; overflow: hidden; border-color: var(--line); box-shadow: none; }
 .card--afbeelding img { display: block; width: 100%; pointer-events: none; }
-.card--afbeelding .card__title { padding: 8px 12px; font: 500 12.5px var(--body); color: var(--muted); margin: 0; }
+.card--afbeelding .card__title { padding: 8px 12px; font: 500 12.5px var(--body); opacity: .75; margin: 0; }
 .card--afbeelding .card__by { margin: 0 12px 10px; }
 
 /* Markdown, shared by cards and the read panel */
