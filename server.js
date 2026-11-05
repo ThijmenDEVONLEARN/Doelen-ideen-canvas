@@ -4,6 +4,7 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { createStore, httpError } from './server/store.js';
 import { createEvents } from './server/events.js';
+import { scheduleBackups } from './server/backup.js';
 
 const ROOT = path.dirname(fileURLToPath(import.meta.url));
 const PUBLIC = path.join(ROOT, 'public');
@@ -22,6 +23,7 @@ const store = createStore(DATA);
 const uploadsDir = path.join(DATA, 'uploads');
 fs.mkdirSync(uploadsDir, { recursive: true });
 const events = createEvents([store.itemsDir, DATA]);
+scheduleBackups(DATA);
 
 const routes = [
   ['GET', /^\/api\/state$/, () => ({ items: store.list(), layout: store.getLayout() })],
