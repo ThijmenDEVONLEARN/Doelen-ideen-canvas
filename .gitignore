@@ -1,0 +1,7 @@
+# Your own goals, uploads and backups never leave your machine
+data/
+.demo-data/
+
+node_modules/
+.DS_Store
+*.log
