@@ -258,6 +258,9 @@ viewport.addEventListener('pointerdown', e => {
         else { select({ kind: 'item', id }); hooks.openRead(id); }
       });
     }
+  } else if (state.tool === 'afbeelding') {
+    hooks.pickImage(startWorld);
+    return;
   } else if (['doel', 'idee', 'notitie'].includes(state.tool)) {
     createAt(state.tool, startWorld);
     return;

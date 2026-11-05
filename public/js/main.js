@@ -1,10 +1,11 @@
 import { state, load, undo, redo, deleteItem, removeLink, subscribe } from './state.js';
 import { onSaveStatus, onServerChange } from './api.js';
-import { applyView, zoomAt, fitAll, setTool, deleteZone, render, hooks, focusItem, createAt, viewportCenter } from './canvas.js';
+import { applyView, zoomAt, fitAll, setTool, deleteZone, render, hooks, focusItem, createAt, viewportCenter, toWorld } from './canvas.js';
 import { openRead, openEdit, closePanel } from './panel.js';
 import { setTimeline, timelineHooks } from './timeline.js';
 import { setupSearch, openSearch } from './search.js';
 import { openReview } from './review.js';
+import { addImage, setupImageDrop } from './images.js';
 import { applyStyles } from './style.js';
 
 const $ = id => document.getElementById(id);
@@ -33,7 +34,8 @@ $('zoom-fit').addEventListener('click', fitAll);
 subscribe(applyStyles);
 subscribe(() => { $('zoom-level').textContent = Math.round(state.view.scale * 100) + '%'; });
 
-Object.assign(hooks, { openRead, openEdit, closePanel });
+Object.assign(hooks, { openRead, openEdit, closePanel, pickImage: p => addImage(p).finally(() => setTool('select')) });
+setupImageDrop($('viewport'), toWorld, viewportCenter);
 timelineHooks.focus = id => { focusItem(id); openRead(id); };
 
 export const actions = [
@@ -48,7 +50,7 @@ setupSearch({ actions, onPick: id => { focusItem(id); openRead(id); } });
 $('search-open').addEventListener('click', openSearch);
 $('review-open').addEventListener('click', () => openReview({ at: viewportCenter }));
 
-const TOOL_KEYS = { v: 'select', p: 'edit', d: 'doel', i: 'idee', n: 'notitie', z: 'zone', l: 'lijn' };
+const TOOL_KEYS = { v: 'select', p: 'edit', d: 'doel', i: 'idee', n: 'notitie', z: 'zone', l: 'lijn', a: 'afbeelding' };
 export const shortcuts = { 'ctrl+k': openSearch }; // { 'ctrl+k': fn }, checked before anything else
 
 window.addEventListener('keydown', e => {
