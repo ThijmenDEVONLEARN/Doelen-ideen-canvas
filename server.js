@@ -3,6 +3,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { createStore, httpError } from './server/store.js';
+import { createEvents } from './server/events.js';
 
 const ROOT = path.dirname(fileURLToPath(import.meta.url));
 const PUBLIC = path.join(ROOT, 'public');
@@ -20,6 +21,7 @@ const MIME = {
 const store = createStore(DATA);
 const uploadsDir = path.join(DATA, 'uploads');
 fs.mkdirSync(uploadsDir, { recursive: true });
+const events = createEvents([store.itemsDir, DATA]);
 
 const routes = [
   ['GET', /^\/api\/state$/, () => ({ items: store.list(), layout: store.getLayout() })],
@@ -65,6 +67,7 @@ const routes = [
 const server = http.createServer(async (req, res) => {
   const url = new URL(req.url, 'http://localhost');
   try {
+    if (url.pathname === '/api/events') return events.handle(req, res);
     if (url.pathname.startsWith('/api/')) {
       for (const [method, re, handler] of routes) {
         const m = url.pathname.match(re);
