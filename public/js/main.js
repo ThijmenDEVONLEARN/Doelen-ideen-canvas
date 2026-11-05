@@ -1,6 +1,7 @@
 import { state, load, undo, redo, deleteItem, removeLink, subscribe } from './state.js';
 import { onSaveStatus, onServerChange } from './api.js';
-import { applyView, zoomAt, fitAll, setTool, deleteZone, render } from './canvas.js';
+import { applyView, zoomAt, fitAll, setTool, deleteZone, render, hooks } from './canvas.js';
+import { openRead, openEdit, closePanel } from './panel.js';
 import { applyStyles } from './style.js';
 
 const $ = id => document.getElementById(id);
@@ -29,6 +30,8 @@ $('zoom-fit').addEventListener('click', fitAll);
 subscribe(applyStyles);
 subscribe(() => { $('zoom-level').textContent = Math.round(state.view.scale * 100) + '%'; });
 
+Object.assign(hooks, { openRead, openEdit, closePanel });
+
 const TOOL_KEYS = { v: 'select', p: 'edit', d: 'doel', i: 'idee', n: 'notitie', z: 'zone', l: 'lijn' };
 export const shortcuts = {}; // extra key handlers registered by feature modules: { 'ctrl+k': fn }
 
@@ -40,7 +43,8 @@ window.addEventListener('keydown', e => {
   if (combo === 'ctrl+shift+z' || combo === 'ctrl+y') { e.preventDefault(); redo(); return; }
   if (e.ctrlKey || e.metaKey || e.altKey) return;
   if (TOOL_KEYS[e.key.toLowerCase()]) { setTool(TOOL_KEYS[e.key.toLowerCase()]); return; }
-  if (e.key === 'Escape') { setTool('select'); return; }
+  if (e.key === 'Escape') { setTool('select'); closePanel(); return; }
+  if (e.key.toLowerCase() === 'e' && state.selected?.kind === 'item') { e.preventDefault(); openEdit(state.selected.id); return; }
   if (e.key === 'Delete' || e.key === 'Backspace') {
     const sel = state.selected;
     if (!sel) return;
