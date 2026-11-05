@@ -27,6 +27,7 @@
     <span class="logo"><i></i>Doelen Canvas</span>
     <span class="spacer"></span>
     <span class="save-status" id="save-status" role="status">opgeslagen</span>
+    <button type="button" class="btn" id="timeline-toggle" aria-pressed="false" title="Tijdband (T)"><span>Tijdband</span></button>
   </header>
 
   <nav class="rail" role="toolbar" aria-label="Gereedschap">
@@ -55,6 +56,7 @@
     <button type="button" id="zoom-fit">Passend</button>
   </div>
 
+  <section id="timeline" class="timeline" aria-label="Tijdband" hidden></section>
   <aside id="panel" class="panel" hidden aria-live="polite"></aside>
   <div id="toast" class="toast" role="status" hidden></div>
 
