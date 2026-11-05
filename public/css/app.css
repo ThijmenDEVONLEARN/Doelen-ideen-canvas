@@ -283,3 +283,18 @@ body.has-timeline .zoombar, body.has-timeline .minimap { bottom: calc(var(--time
 .dot--idee { background: transparent; border: 1.5px dashed var(--muted); }
 .dot--notitie, .dot--afbeelding { background: var(--line-strong); border-radius: 2px; }
 .dot--action { background: var(--amber); border-radius: 2px; }
+.review { width: min(660px, 100%); background: var(--panel); border: 1px solid var(--line-strong); border-radius: 16px; box-shadow: 0 24px 60px #000a; padding: 22px; display: flex; flex-direction: column; gap: 16px; max-height: calc(100vh - var(--topbar) - 90px); overflow-y: auto; }
+.review__title { margin: 0; font: 700 22px var(--display); }
+.stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+.stats div { background: var(--field); border: 1px solid var(--line); border-radius: 10px; padding: 12px; }
+.stats b { display: block; font: 700 28px var(--display); }
+.stats span { font-size: 12px; color: var(--muted); }
+.review__goals { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 8px; }
+.review__goals li { display: grid; grid-template-columns: minmax(0, 1fr) 2fr 40px; gap: 12px; align-items: center; font-size: 13px; }
+.review__goals span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.review__goals .card__bar { margin: 0; }
+.review__goals em { font: 11px var(--mono); font-style: normal; color: var(--muted); text-align: right; }
+.warn { display: flex; gap: 10px; align-items: center; margin: 0; background: #f2b24c14; border: 1px solid #f2b24c44; border-radius: 10px; padding: 10px 12px; font-size: 13px; }
+.warn i { width: 8px; height: 8px; border-radius: 50%; background: var(--amber); flex: none; }
+.review textarea { resize: vertical; }
+@media (max-width: 560px) { .stats, .two { grid-template-columns: 1fr; } }

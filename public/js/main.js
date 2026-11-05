@@ -4,6 +4,7 @@ import { applyView, zoomAt, fitAll, setTool, deleteZone, render, hooks, focusIte
 import { openRead, openEdit, closePanel } from './panel.js';
 import { setTimeline, timelineHooks } from './timeline.js';
 import { setupSearch, openSearch } from './search.js';
+import { openReview } from './review.js';
 import { applyStyles } from './style.js';
 
 const $ = id => document.getElementById(id);
@@ -40,10 +41,12 @@ export const actions = [
   { label: 'Nieuw idee maken', key: 'I', run: () => createAt('idee', viewportCenter()) },
   { label: 'Nieuwe notitie maken', key: 'N', run: () => createAt('notitie', viewportCenter()) },
   { label: 'Tijdband aan of uit', key: 'T', run: () => setTimeline(!state.timeline) },
+  { label: 'Weekreview openen', key: '', run: () => openReview({ at: viewportCenter }) },
   { label: 'Alles in beeld', key: '', run: fitAll },
 ];
 setupSearch({ actions, onPick: id => { focusItem(id); openRead(id); } });
 $('search-open').addEventListener('click', openSearch);
+$('review-open').addEventListener('click', () => openReview({ at: viewportCenter }));
 
 const TOOL_KEYS = { v: 'select', p: 'edit', d: 'doel', i: 'idee', n: 'notitie', z: 'zone', l: 'lijn' };
 export const shortcuts = { 'ctrl+k': openSearch }; // { 'ctrl+k': fn }, checked before anything else
