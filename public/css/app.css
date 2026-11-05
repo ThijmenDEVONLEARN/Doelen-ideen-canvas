@@ -298,3 +298,9 @@ body.has-timeline .zoombar, body.has-timeline .minimap { bottom: calc(var(--time
 .warn i { width: 8px; height: 8px; border-radius: 50%; background: var(--amber); flex: none; }
 .review textarea { resize: vertical; }
 @media (max-width: 560px) { .stats, .two { grid-template-columns: 1fr; } }
+
+/* ---------- minimap ---------- */
+.minimap { position: fixed; right: 12px; bottom: 12px; z-index: 15; width: 170px; height: 104px; background: #15121cdd; border: 1px solid var(--line); border-radius: 10px; cursor: pointer; }
+body:has(.panel:not([hidden])) .minimap { right: calc(min(380px, 100vw) + 12px); }
+body:has(.panel--edit:not([hidden])) .minimap { right: calc(min(460px, 100vw) + 12px); }
+@media (max-width: 700px) { .minimap { display: none; } }

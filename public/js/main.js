@@ -7,6 +7,7 @@ import { setupSearch, openSearch } from './search.js';
 import { openReview } from './review.js';
 import { addImage, setupImageDrop } from './images.js';
 import { exportPng } from './export.js';
+import { redrawMinimap } from './minimap.js';
 import { applyStyles } from './style.js';
 
 const $ = id => document.getElementById(id);
@@ -35,7 +36,7 @@ $('zoom-fit').addEventListener('click', fitAll);
 subscribe(applyStyles);
 subscribe(() => { $('zoom-level').textContent = Math.round(state.view.scale * 100) + '%'; });
 
-Object.assign(hooks, { openRead, openEdit, closePanel, pickImage: p => addImage(p).finally(() => setTool('select')) });
+Object.assign(hooks, { openRead, openEdit, closePanel, pickImage: p => addImage(p).finally(() => setTool('select')), onView: redrawMinimap });
 setupImageDrop($('viewport'), toWorld, viewportCenter);
 timelineHooks.focus = id => { focusItem(id); openRead(id); };
 
