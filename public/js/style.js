@@ -13,7 +13,7 @@ export const BUILTIN_PRESETS = [
 ];
 
 const FONTS = [
-  ['', 'Standaard'], ['var(--display)', 'Bricolage'], ['var(--body)', 'Manrope'],
+  ['', 'Standaard'], ['var(--display)', 'Fraunces'], ['var(--body)', 'Source Sans'],
   ['var(--mono)', 'Mono'], ['Georgia, serif', 'Serif'],
 ];
 

@@ -24,7 +24,7 @@ export async function exportPng() {
 
   const body = new XMLSerializer().serializeToString(clone);
   const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}"><foreignObject width="100%" height="100%">`
-    + `<div xmlns="http://www.w3.org/1999/xhtml" style="position:relative;width:${W}px;height:${H}px;overflow:hidden;background:#0f0d14;color:#ece8f4;font:14px/1.45 Manrope, system-ui, sans-serif">`
+    + `<div xmlns="http://www.w3.org/1999/xhtml" style="position:relative;width:${W}px;height:${H}px;overflow:hidden;background:#0f0d14;color:#ece8f4;font:16px/1.5 'Source Sans 3', system-ui, sans-serif">`
     + `<style>${css.replace(/@import[^;]+;/g, '').replace(/]]>/g, '')}</style>${body}</div></foreignObject></svg>`;
 
   const img = new Image();
